@@ -31,6 +31,21 @@ function  create_cell ()
   return {set_cell, get_cell};
 }
 
+function create_player()
+{
+  let last_played = false;
+  let score = 0;
+  
+  function inc_score () {score++};
+  function get_score ()  {return score};
+  
+  function is_last_player () { return last_played; } 
+  function mark_played ()  {last_played = true;}
+  function mark_not_played () {last_played = false;}
+
+  return {inc_score, get_score, is_last_player, mark_played, mark_not_played};
+}
 
 gameboard = create_gameboard();
-
+player1 = create_player();
+player2 = create_player();
