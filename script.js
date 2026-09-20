@@ -2,8 +2,17 @@ function create_gameboard()
 {
   let gameboard = new Array();
   
-  for (let i = 0; i < 9; i++)
-    gameboard.push(create_cell());
+  for (let i = 0; i < 3; i++)
+  {
+    let row = new Array();
+    let col = new Array();
+    for (let i = 0; i < 3; i++)
+    {
+      col.push(create_cell());
+    }
+    row.push(col);
+    gameboard.push(row);
+  }
 
   return gameboard;
 }
@@ -49,3 +58,5 @@ function create_player()
 gameboard = create_gameboard();
 player1 = create_player();
 player2 = create_player();
+
+
