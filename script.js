@@ -1,3 +1,13 @@
+function create_gameboard()
+{
+  let gameboard = new Array();
+  
+  for (let i = 0; i < 9; i++)
+    gameboard.push(create_cell());
+
+  return gameboard;
+}
+
 function  create_cell ()
 {
   let value = 0; // 0 = NULL, O = O, X = X 
@@ -21,5 +31,6 @@ function  create_cell ()
   return {set_cell, get_cell};
 }
 
-c1 = create_cell ();
+
+gameboard = create_gameboard();
 
