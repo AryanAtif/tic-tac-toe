@@ -33,6 +33,7 @@ function check_game_state(symbol)
       if (check_neighbors_y(i, 1, symbol)) return true;
     }
   }
+  if (check_diagonal(1, 1, symbol)) return true;
 }
 
 function neighbors_x (row, col, symbol)
@@ -78,6 +79,16 @@ function neighbors_y (row, col, symbol)
   }
   if (gameboard[neighbor1][col] === symbol && gameboard[neighbor2][col] === symbol) return true;
 }
+
+function check_diagonal (row, col, symbol)
+{
+  let neighbor1 = -1;
+  let neighbor2 = +1;
+  if (gameboard[row + neighbor1][col + neighbor1] === symbol && gameboard[row + neighbor2][col + neighbor2] === symbol) return true;
+}
+
+
+
 function  create_cell ()
 {
   let value = 0; // 0 = NULL, O = O, X = X 
