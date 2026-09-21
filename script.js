@@ -5,15 +5,13 @@ function create_gameboard()
   for (let i = 0; i < 3; i++)
   {
     let row = new Array();
-    let col = new Array();
-    for (let i = 0; i < 3; i++)
+
+    for (let j = 0; j < 3; j++)
     {
-      col.push(create_cell());
+      row.push(create_cell());
     }
-    row.push(col);
     gameboard.push(row);
   }
-
   return gameboard;
 }
 
@@ -43,6 +41,7 @@ function  create_cell ()
 function create_player()
 {
   let last_played = false;
+
   let score = 0;
   
   function inc_score () {score++};
@@ -55,8 +54,36 @@ function create_player()
   return {inc_score, get_score, is_last_player, mark_played, mark_not_played};
 }
 
-gameboard = create_gameboard();
-player1 = create_player();
-player2 = create_player();
+function init()
+{ 
+  gameboard = create_gameboard();
+  player1 = create_player();
+  player2 = create_player();
+  
+  while(true)
+  {
+    if (!player1.is_last_player()) // player1 should be the first player
+    {
+      let row = prompt("Choose the row to place your O, player1");
+      let col = prompt("Choose the col to place your O, player1");
+      var gameboard_row = gameboard[row];
+      gameboard_row[col].set_cell("O");
 
+      player1.mark_played();
+      player2.mark_not_played();
+    }
+    else
+    {
+      let row = prompt("Choose the row to place your X, player2");
+      let col = prompt("Choose the col to place your O, player2");
+      
+      var gameboard_row = gameboard[row];
+      gameboard_row[col].set_cell("X");
+      
+      player2.mark_played();
+      player1.mark_not_played();
+    }
+  }
+
+}
 
