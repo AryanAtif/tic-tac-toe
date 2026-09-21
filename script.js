@@ -1,6 +1,6 @@
 function create_gameboard()
 {
-  let gameboard = new Array();
+  let grid = new Array();
   
   for (let i = 0; i < 3; i++)
   {
@@ -10,11 +10,74 @@ function create_gameboard()
     {
       row.push(create_cell());
     }
-    gameboard.push(row);
+    grid.push(row);
   }
-  return gameboard;
+  
+ return grid;
+}
+function check_game_state(symbol)
+{
+  for (let i = 0; i < 3; i++) // The first row.
+  {
+    if (gameboard[0][i] == symbol)
+    {
+      if (check_neighbors_x(0, i, symbol)) return true;
+      if (check_neighbors_y(0, i, symbol)) return true;
+    }
+  }
+  for (let i = 0; i < 3; i++) // The second col.
+  {
+    if (gameboard[i][1] == symbol)
+    {
+      if (check_neighbors_x(i, 1, symbol)) return true;
+      if (check_neighbors_y(i, 1, symbol)) return true;
+    }
+  }
 }
 
+function neighbors_x (row, col, symbol)
+{
+  let neighbor1 = undefined;
+  let neighbor2 = undefined;
+  if (col === 0)
+  {
+    neighbor1 = 1;
+    neighbor2 = 2;
+  }
+  else if (col === 1)
+  {
+    neighbor1 = 0;
+    neighbor2 = 2;
+  }
+  else 
+  {
+    neighbor1 = 0;
+    neighbor2 = 1;
+  }
+  if (gameboard[row][neighbor1] === symbol && gameboard[row][neighbor2] === symbol) return true;
+}
+
+function neighbors_y (row, col, symbol)
+{
+  let neighbor1 = undefined;
+  let neighbor2 = undefined;
+  if (row === 0)
+  {
+    neighbor1 = 1;
+    neighbor2 = 2;
+  }
+  else if (row === 1)
+  {
+    neighbor1 = 0;
+    neighbor2 = 2;
+  }
+  else 
+  {
+    neighbor1 = 0;
+    neighbor2 = 1;
+  }
+  if (gameboard[neighbor1][col] === symbol && gameboard[neighbor2][col] === symbol) return true;
+}
 function  create_cell ()
 {
   let value = 0; // 0 = NULL, O = O, X = X 
@@ -60,7 +123,7 @@ function init()
   player1 = create_player();
   player2 = create_player();
   
-  while(true)
+  while(!player2.mark_played())
   {
     if (!player1.is_last_player()) // player1 should be the first player
     {
