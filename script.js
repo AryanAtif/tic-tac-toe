@@ -133,8 +133,9 @@ function init()
   gameboard = create_gameboard();
   player1 = create_player();
   player2 = create_player();
+  let cell_marked = 0;
   
-  while(!player2.mark_played())
+  while(cell_marked <= 9)
   {
     if (!player1.is_last_player()) // player1 should be the first player
     {
@@ -145,6 +146,7 @@ function init()
 
       player1.mark_played();
       player2.mark_not_played();
+      cell_marked++;
     }
     else
     {
@@ -156,6 +158,7 @@ function init()
       
       player2.mark_played();
       player1.mark_not_played();
+      cell_marked++;
     }
   }
 
