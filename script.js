@@ -136,29 +136,7 @@ function init()
  
   while(cell_marked <= 9)
   {
-    if (!player1.is_last_player()) // player1 should be the first player
-    {
-      let row = prompt("Choose the row to place your O, player1");
-      let col = prompt("Choose the col to place your O, player1");
-      var gameboard_row = gameboard[row];
-      gameboard_row[col].set_cell("O");
-
-      player1.mark_played();
-      player2.mark_not_played();
-      cell_marked++;
-    }
-    else
-    {
-      let row = prompt("Choose the row to place your X, player2");
-      let col = prompt("Choose the col to place your O, player2");
-      
-      var gameboard_row = gameboard[row];
-      gameboard_row[col].set_cell("X");
-      
-      player2.mark_played();
-      player1.mark_not_played();
-      cell_marked++;
-    }
+    
   }
 
 }
