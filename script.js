@@ -19,21 +19,21 @@ function check_game_state(symbol)
 {
   for (let i = 0; i < 3; i++) // The first row.
   {
-    if (gameboard[0][i] == symbol)
+    if (gameboard[0][i].get_cell() === symbol)
     {
-      if (check_neighbors_x(0, i, symbol)) return true;
-      if (check_neighbors_y(0, i, symbol)) return true;
+      if (neighbors_x(0, i, symbol)) return true;
+      if (neighbors_y(0, i, symbol)) return true;
     }
   }
   for (let i = 0; i < 3; i++) // The second col.
   {
-    if (gameboard[i][1] == symbol)
+    if (gameboard[i][1].get_cell() === symbol)
     {
-      if (check_neighbors_x(i, 1, symbol)) return true;
-      if (check_neighbors_y(i, 1, symbol)) return true;
+      if (neighbors_x(i, 1, symbol)) return true;
+      if (neighbors_y(i, 1, symbol)) return true;
     }
   }
-  if (check_diagonal(1, 1, symbol)) return true;
+  if (gameboard[1][1].get_cell() === symbol && diagonal(1, 1, symbol)) return true;
 }
 
 function neighbors_x (row, col, symbol)
@@ -55,7 +55,7 @@ function neighbors_x (row, col, symbol)
     neighbor1 = 0;
     neighbor2 = 1;
   }
-  if (gameboard[row][neighbor1] === symbol && gameboard[row][neighbor2] === symbol) return true;
+  if (gameboard[row][neighbor1].get_cell() === symbol && gameboard[row][neighbor2].get_cell() === symbol) return true;
 }
 
 function neighbors_y (row, col, symbol)
@@ -77,14 +77,13 @@ function neighbors_y (row, col, symbol)
     neighbor1 = 0;
     neighbor2 = 1;
   }
-  if (gameboard[neighbor1][col] === symbol && gameboard[neighbor2][col] === symbol) return true;
+  if (gameboard[neighbor1][col].get_cell() === symbol && gameboard[neighbor2][col].get_cell() === symbol) return true;
 }
 
-function check_diagonal (row, col, symbol)
+function diagonal (row, col, symbol)
 {
-  let neighbor1 = -1;
-  let neighbor2 = +1;
-  if (gameboard[row + neighbor1][col + neighbor1] === symbol && gameboard[row + neighbor2][col + neighbor2] === symbol) return true;
+  if (gameboard[0][0].get_cell() === symbol && gameboard[2][2].get_cell() === symbol) return true;
+  else if (gameboard[0][2].get_cell() === symbol && gameboard[2][0].get_cell() === symbol) return true;
 }
 
 
@@ -134,7 +133,7 @@ function init()
   player1 = create_player();
   player2 = create_player();
   let cell_marked = 0;
-  
+ 
   while(cell_marked <= 9)
   {
     if (!player1.is_last_player()) // player1 should be the first player
