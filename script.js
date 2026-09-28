@@ -129,15 +129,35 @@ function create_player()
 
 function init()
 { 
+  init_gui();
   gameboard = create_gameboard();
   player1 = create_player();
   player2 = create_player();
   let cell_marked = 0;
  
-  while(cell_marked <= 9)
+  /*while(cell_marked <= 9)
   {
     
-  }
+  }*/
 
 }
 
+function init_gui()
+{
+  const main_container = document.createElement("div");
+  main_container.setAttribute("class", "main_container");
+  document.body.appendChild(main_container);
+  
+  const game_container = document.createElement("div");
+  game_container.setAttribute("class", "game_container");
+  main_container.appendChild(game_container);
+
+  const sidebar = document.createElement("div");
+  sidebar.setAttribute("class", "sidebar");
+  game_container.appendChild(sidebar);
+  
+  const gameboard = document.createElement("div");
+  gameboard.setAttribute("class", "gameboard");
+  game_container.appendChild(gameboard);
+}
+init();

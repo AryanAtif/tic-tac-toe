@@ -1,0 +1,29 @@
+*
+{
+  background: #333333;
+  color: white;
+}
+.main_container
+{
+  display: flex;
+  justify-content: center;
+}
+.game_container
+{
+  background: #444545;
+  height: 20px;
+  width: 70vw;
+  padding: 5px;
+
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.sidebar
+{
+  background: green;
+}
+.gameboard
+{
+  background: #333333;
+  
+}
