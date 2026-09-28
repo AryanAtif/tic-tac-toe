@@ -159,5 +159,20 @@ function init_gui()
   const gameboard = document.createElement("div");
   gameboard.setAttribute("class", "gameboard");
   game_container.appendChild(gameboard);
+
+  create_grid();
 }
+
+function create_grid()
+{
+  const gameboard = document.querySelector(".gameboard");
+
+  for (let i = 1; i <= 9; i++)
+  {
+    const new_cell = document.createElement("div");
+    new_cell.setAttribute("class", "cell_" + i);
+    gameboard.appendChild(new_cell);
+  }
+}
+
 init();

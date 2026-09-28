@@ -11,7 +11,7 @@
 .game_container
 {
   background: #444545;
-  height: 20px;
+  height: 70vh;
   width: 70vw;
   padding: 5px;
 
@@ -25,5 +25,17 @@
 .gameboard
 {
   background: #333333;
+  padding: 5px;
   
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-template-rows: repeat(3, 33%);
+  justify-items: center;
+  align-items: center;
+}
+.gameboard > div
+{
+  height: 90%;
+  width: 90%;
+  background: #444545;
 }
