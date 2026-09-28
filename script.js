@@ -128,18 +128,33 @@ function create_player()
 }
 
 function init()
-{ 
+{
   init_gui();
+
   gameboard = create_gameboard();
   player1 = create_player();
   player2 = create_player();
   let cell_marked = 0;
  
-  /*while(cell_marked <= 9)
+  let turns_played = 0;
+  while(turns_played < 9)
   {
-    
-  }*/
+    get_clicked_cell();
+    if (check_game_state("O")) break;
+    else if (check_game_state("X")) break;
+    turns_played++;
+  }
+}
 
+function get_clicked_cell()
+{
+  cells.addEventListener("click", () =>
+  {
+    let i = this.id / 10;
+    let j = this.id % 10;
+    gameboard[i][j].set_cell("O");
+    console.log(gameboard[i][j].get_cell());
+  });
 }
 
 function init_gui()
@@ -167,12 +182,22 @@ function create_grid()
 {
   const gameboard = document.querySelector(".gameboard");
 
-  for (let i = 1; i <= 9; i++)
+  for (let i = 0; i < 3; i++)
   {
-    const new_cell = document.createElement("div");
-    new_cell.setAttribute("class", "cell_" + i);
-    gameboard.appendChild(new_cell);
+    let row = new Array();
+    for (let j = 0; j < 3; j++)
+    {
+      const new_cell = document.createElement("div");
+      new_cell.setAttribute("class", "cell");
+      new_cell.setAttribute("id", i + j);
+
+      gameboard.appendChild(new_cell);
+      row.push(new_cell);
+    }
+    cells.push(row);
   }
 }
 
+let cells = new Array();
 init();
+
