@@ -15,6 +15,7 @@ function create_gameboard()
   
  return grid;
 }
+
 function check_game_state(symbol)
 {
   for (let i = 0; i < 3; i++) // The first row.
@@ -86,8 +87,6 @@ function diagonal (row, col, symbol)
   else if (gameboard[0][2].get_cell() === symbol && gameboard[2][0].get_cell() === symbol) return true;
 }
 
-
-
 function  create_cell ()
 {
   let value = 0; // 0 = NULL, O = O, X = X 
@@ -135,25 +134,28 @@ function init()
   player1 = create_player();
   player2 = create_player();
   let cell_marked = 0;
- 
-  let turns_played = 0;
+  get_clicked_cell();
+/*
   while(turns_played < 9)
   {
-    get_clicked_cell();
+    let clicked = get_clicked_cell( );
     if (check_game_state("O")) break;
     else if (check_game_state("X")) break;
     turns_played++;
-  }
+  }*/
 }
 
 function get_clicked_cell()
 {
-  cells.addEventListener("click", () =>
+  document.querySelectorAll(".cell").forEach((cell) => 
   {
-    let i = this.id / 10;
-    let j = this.id % 10;
-    gameboard[i][j].set_cell("O");
-    console.log(gameboard[i][j].get_cell());
+    cell.addEventListener("click", (e) =>
+    {
+        if (turns_played < 9)
+        {
+          console.log(e.target.id); turns_played++;
+        }
+    });
   });
 }
 
@@ -189,7 +191,7 @@ function create_grid()
     {
       const new_cell = document.createElement("div");
       new_cell.setAttribute("class", "cell");
-      new_cell.setAttribute("id", i + j);
+      new_cell.setAttribute("id", i + "" + j);
 
       gameboard.appendChild(new_cell);
       row.push(new_cell);
@@ -199,5 +201,6 @@ function create_grid()
 }
 
 let cells = new Array();
+let turns_played = 0;
 init();
 
