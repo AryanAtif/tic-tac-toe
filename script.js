@@ -125,8 +125,7 @@ function create_player()
 
   return {inc_score, get_score, is_last_player, mark_played, mark_not_played};
 }
-
-function init()
+function init() 
 {
   init_gui();
 
@@ -134,31 +133,41 @@ function init()
   player1 = create_player();
   player2 = create_player();
   let cell_marked = 0;
-  get_clicked_cell();
-/*
-  while(turns_played < 9)
-  {
-    let clicked = get_clicked_cell( );
-    if (check_game_state("O")) break;
-    else if (check_game_state("X")) break;
-    turns_played++;
-  }*/
-}
 
-function get_clicked_cell()
-{
   document.querySelectorAll(".cell").forEach((cell) => 
   {
-    cell.addEventListener("click", (e) =>
-    {
-        if (turns_played < 9)
-        {
-          console.log(e.target.id); turns_played++;
-        }
-    });
+      cell.addEventListener("click", () =>
+      {
+          if (turns_played < 9)
+          {
+            console.log(cell.id); turns_played++;
+            let i = cell.id % 10; // get column
+            let j = Math.floor(cell.id / 10); // get row 
+            console.log("row = " + j + " col: " + i);
+
+            if (!player1.is_last_player())
+            {
+              gameboard[j][i].set_cell("O");
+              show_symbol("O", j, i);
+              player1.mark_played();
+              player2.mark_not_played();
+            }
+            else
+            {
+              gameboard[j][i].set_cell("X");
+              show_symbol("X", j, i);
+              player2.mark_played();
+              player1.mark_not_played();
+            } 
+          }
+      });
   });
 }
-
+function show_symbol(symbol, row, column)
+{
+  let cell = document.getElementById(row*10 + column);
+  cell.textContent = symbol;
+}
 function init_gui()
 {
   const main_container = document.createElement("div");
@@ -184,14 +193,14 @@ function create_grid()
 {
   const gameboard = document.querySelector(".gameboard");
 
-  for (let i = 0; i < 3; i++)
+  for (let j = 0; j < 3; j++)
   {
     let row = new Array();
-    for (let j = 0; j < 3; j++)
+    for (let i = 0; i < 3; i++)
     {
       const new_cell = document.createElement("div");
       new_cell.setAttribute("class", "cell");
-      new_cell.setAttribute("id", i + "" + j);
+      new_cell.setAttribute("id", j*10 + i);
 
       gameboard.appendChild(new_cell);
       row.push(new_cell);
